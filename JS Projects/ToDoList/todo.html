@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do Applicanshn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+
+        *{
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 62.7%;
+        }
+
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            background-color: #210F37;
+        }
+
+        .header{
+            font-size: 5rem;
+            text-transform: uppercase;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(to right, #f7b733, #fc4a1a);
+            background-clip: text;
+            color: transparent;
+        }
+
+        form{
+            width: 50%;
+            text-align: center;
+
+            & input{
+                width: 30%;
+                padding: .6rem 1rem;
+                font-size: 1.5rem;
+                border-radius: 2rem 0rem 0rem 2rem;
+                font-family: "Jost", sans-serif;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                border: 2px solid #ddd;
+                outline: none;
+            }
+
+            & input:focus{
+                border-color: #32CD32;
+            }
+
+            & .addtodobtn{
+                padding: .6rem 1rem;
+                font-size: 1.5rem;
+                border-radius: 0rem 2rem 2rem 0rem;
+                font-family: "Jost", sans-serif;
+                font-weight: 700;
+                background-color: #32CD32;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            & .addtodobtn:hover{
+                background-color: #28a428;
+            }
+
+            & .stats{
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin-bottom: 2rem;
+                font-family: "Jost", sans-serif;
+                font-size: 1.4rem;
+                color: #fff;
+                
+                & span{
+                    background-color: rgba(255, 255, 255, 0.1);
+                    padding: 0.5rem 1rem;
+                    border-radius: 1rem;
+                    -webkit-backdrop-filter: blur(10px);
+                    backdrop-filter: blur(10px);
+                }
+            }
+
+            & .todolist .items{
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                list-style-type: none;
+                margin-bottom: 2rem;
+
+                & li{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                    animation: slideIn 0.3s ease-in;
+
+                    & .todo-text{
+                        width: 36%;
+                        background-color: #fff; 
+                        text-align: left;
+                        padding: .6rem 1rem;
+                        font-size: 1.5rem;
+                        border-radius: 2rem 0rem 0rem 2rem;
+                        font-family: "Jost", sans-serif;
+                        font-weight: 700;
+                        transition: all 0.3s ease;
+                    }
+
+                    & .todo-actions{
+                        display: flex;
+                        gap: 0;
+                    }
+
+                    & .completebtn{
+                        width: 4rem;
+                        background-color: #007BFF;
+                        color: #fff; 
+                        text-align: center;
+                        padding: .6rem;
+                        font-size: 1.2rem;
+                        border: none;
+                        cursor: pointer;
+                        transition: background-color 0.3s;
+                    }
+
+                    & .completebtn:hover{
+                        background-color: #0056b3;
+                    }
+
+                    & .delbtn{
+                        width: 4rem;
+                        background-color: #ED2939;
+                        color: #fff; 
+                        text-align: center;
+                        padding: .6rem;
+                        font-size: 1.2rem;
+                        border-radius: 0rem 2rem 2rem 0rem;
+                        border: none;
+                        cursor: pointer;
+                        transition: background-color 0.3s;
+                    }
+
+                    & .delbtn:hover{
+                        background-color: #c41e2e;
+                    }
+                }
+            }
+
+            & .todo-controls{
+                margin-top: 1rem;
+                
+                & .clear-completed{
+                    padding: .8rem 1.5rem;
+                    font-size: 1.3rem;
+                    border-radius: 2rem;
+                    font-family: "Jost", sans-serif;
+                    font-weight: 700;
+                    background-color: #FF6B35;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+
+                & .clear-completed:hover{
+                    background-color: #e55a2b;
+                }
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1 class="header">to-do application</h1>
+    <form action="">
+        <input type="text" autocomplete="off" id="inputfiled" placeholder="Enter your todo...">
+        <button type="submit" class="addtodobtn" id="addtodo">Add Todo</button>
+        
+        <div class="stats">
+            <span>Total: 0</span>
+            <span>Completed: 0</span>
+            <span>Pending: 0</span>
+        </div>
+        
+        <div class="todolist">
+            <ul class="items">
+                
+            </ul>
+        </div>
+        
+        <div class="todo-controls">
+            <button type="button" class="clear-completed" onclick="clearCompleted()">
+                Clear Completed
+            </button>
+        </div>
+    </form>
+<script>
+    const listEl = document.querySelector(".items");
+    const statsEl = document.querySelector(".stats");
+    const formEl = document.querySelector("form");
+    const inputEl = document.getElementById("inputfiled");
+
+    const STORAGE_KEY = "todo-app-items";
+    let todoItems = loadTodos();
+
+    function loadTodos() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            return saved ? JSON.parse(saved) : [];
+        } catch (error) {
+            console.error("Failed to load todos:", error);
+            return [];
+        }
+    }
+
+    function saveTodos() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todoItems));
+    }
+
+    function updateStats() {
+        const total = todoItems.length;
+        const completed = todoItems.filter((item) => item.completed).length;
+        const pending = total - completed;
+
+        statsEl.children[0].textContent = `Total: ${total}`;
+        statsEl.children[1].textContent = `Completed: ${completed}`;
+        statsEl.children[2].textContent = `Pending: ${pending}`;
+    }
+
+    function createTodoElement(todo) {
+        const li = document.createElement("li");
+        li.dataset.id = todo.id;
+
+        const textDiv = document.createElement("div");
+        textDiv.className = "todo-text";
+        textDiv.textContent = todo.text;
+
+        if (todo.completed) {
+            textDiv.style.textDecoration = "line-through";
+            textDiv.style.opacity = "0.65";
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "todo-actions";
+
+        const completeBtn = document.createElement("button");
+        completeBtn.type = "button";
+        completeBtn.className = "completebtn";
+        completeBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        completeBtn.title = "Mark complete";
+        completeBtn.addEventListener("click", () => toggleTodo(todo.id));
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.className = "delbtn";
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteBtn.title = "Delete todo";
+        deleteBtn.addEventListener("click", () => deleteTodo(todo.id));
+
+        actions.append(completeBtn, deleteBtn);
+        li.append(textDiv, actions);
+
+        return li;
+    }
+
+    function renderTodos() {
+        listEl.innerHTML = "";
+        todoItems.forEach((todo) => {
+            listEl.appendChild(createTodoElement(todo));
+        });
+        updateStats();
+    }
+
+    function addTodo(text) {
+        const trimmed = text.trim();
+        if (!trimmed) {
+            return;
+        }
+
+        const todo = {
+            id: Date.now(),
+            text: trimmed,
+            completed: false
+        };
+
+        todoItems.push(todo);
+        saveTodos();
+        renderTodos();
+    }
+
+    function toggleTodo(id) {
+        todoItems = todoItems.map((todo) => {
+            if (todo.id === id) {
+                return { ...todo, completed: !todo.completed };
+            }
+            return todo;
+        });
+        saveTodos();
+        renderTodos();
+    }
+
+    function deleteTodo(id) {
+        todoItems = todoItems.filter((todo) => todo.id !== id);
+        saveTodos();
+        renderTodos();
+    }
+
+    function clearCompleted() {
+        todoItems = todoItems.filter((todo) => !todo.completed);
+        saveTodos();
+        renderTodos();
+    }
+
+    window.clearCompleted = clearCompleted;
+
+    formEl.addEventListener("submit", (event) => {
+        event.preventDefault();
+        addTodo(inputEl.value);
+        inputEl.value = "";
+        inputEl.focus();
+    });
+
+    renderTodos();
+
+</script>
+</body>
+</html>

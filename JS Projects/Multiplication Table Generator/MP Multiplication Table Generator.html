@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Mini Project of the Day → Multiplication Table Generator</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 10px;
+            font-family: "Urbanist", sans-serif;
+        }
+
+        .uperpart{
+          width: 100%;
+          height: 25vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          background-color: antiquewhite;
+          gap: 2rem;
+          text-transform: capitalize;
+
+          & .header{
+            font-size: 3rem;  
+          }
+
+          & .inputfileds {
+            font-size: 1.8rem;
+            font-weight: 600;
+
+            & input{
+              padding: .5rem .8rem;
+              border-radius: 3rem;
+              font-weight: 600;
+            }
+
+            & label{
+              margin-left: 3rem;
+            }
+            
+          }
+
+          & #tableBtn{
+            padding: .7rem 1rem;
+            font-size: 1.5rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            background-color: #FCB53B;
+            color: #4F200D;
+          }
+        }
+
+        & .GeneratedTable{
+          display: grid;
+          margin: 3.5rem 4rem;
+          width: auto;
+          grid-template-columns: repeat(auto-fill,minmax(200px,20%));
+          /* grid-template-rows: auto-fill; */
+          gap: 3rem;
+          /* background-color: bisque; */
+          justify-content: center;
+
+          & .MultiplicationTable{
+            margin: auto;
+            background-color: bisque;
+            padding: 2rem 3.5rem;
+            border-radius: 2rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+
+          }
+        }
+
+       @media (max-width: 340px) {
+          html{
+            font-size: 8px;
+          }
+
+          .header{
+            font-size: 1rem;  
+            text-align: center;
+          }
+
+          .uperpart{
+            width: 100%;
+            height: 45vh;
+          }
+
+          .inputfileds{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+
+          .inputlabel{
+            margin: 0;
+          }
+
+        }
+
+         @media (max-width: 535px){
+          html{
+            font-size: 9px;
+          }
+
+          .header{
+            font-size: 1rem;  
+            text-align: center;
+          }
+
+          .uperpart{
+            width: 100%;
+            height: 45vh;
+          }
+
+          .inputfileds{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+
+          .inputlabel{
+            margin: 0;
+          }
+         }
+        
+    </style>
+  </head>
+  <body>
+
+    <div class="uperpart">
+      <h2 class="header">
+        Multiplication Table Generator
+      </h2>
+      <div class="inputfileds">
+        <label for="stratNum" class="inputlabel">To:</label>
+        <input type="number" name="stratNum" id="stratNum" placeholder="Enter a Start Number" value="1">
+        <label for="endNum" class="inputlabel">From:</label>
+        <input type="number" name="endNum" id="endNum" placeholder="Enter a End Number" value="10">
+      </div>
+      <button id="tableBtn">Generate Table</button>
+    </div>
+
+    <div class="GeneratedTable grid" id="GenTable">
+      
+    </div>
+
+    
+    <script>
+
+      let btn = document.getElementById("tableBtn");
+      function generateTable(tableNum) {
+        let tablestr = null;
+
+        for(let i=0;i<=10;i++){
+          let temp = `${tableNum} * ${i} = ${tableNum*i} <br>`;
+          if (i===0) {
+            tablestr=temp;
+          }
+          else{
+            tablestr += temp;
+          }
+        }
+
+        return tablestr;
+      }
+      function check(start,End) {
+        if(start<End && start>= 0 && End>=0){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+
+      btn.addEventListener("click",() => {
+        let to = Number(document.getElementById("stratNum").value);
+        let form = Number(document.getElementById("endNum").value);
+        let htmltable,finelhtmltable;
+
+        if (check(to,form)) {
+          for(let i=to;i<=form;i++){
+            htmltable = '<div class="MultiplicationTable">'
+            htmltable += generateTable(i);
+            htmltable += "</div>";
+            if (i===to) {
+              finelhtmltable = htmltable;
+            }
+            else{
+              finelhtmltable += htmltable;
+            }
+            console.log(htmltable);
+          }
+          
+          let result = document.getElementById("GenTable");
+          result.innerHTML = finelhtmltable;
+          
+        }
+        else{
+          alert("invalid number!! Place Enter The Valid Number");
+        }
+        
+      })
+    
+
+    </script>
+  </body>
+</html>

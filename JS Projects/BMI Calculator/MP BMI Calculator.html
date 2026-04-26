@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Mini Project of the Day → BMI Calculator (Function-based)</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 10px;
+            font-family: "Urbanist", sans-serif;
+        }
+
+        .center{
+          width: 100%;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 3rem;
+        }
+        
+    </style>
+  </head>
+  <body>
+
+  <div class="center">
+    <header class="name"></header>
+      <h2>BMI Calculator</h2>
+    </header>
+    
+    <div class="inputsection">
+
+      <label for="weightInput">Enter Weight</label>
+      <div class="weighInputFileds">
+        <input type="number" name="Weight" id="weightInput" autocomplete="off" placeholder="Enter The Weight">
+        <select name="W_SIUnit" id="W_SIUnit">
+          <option value="kg">Kilogram</option>
+          <option value="lb">IB(Pound)</option>
+          <option value="Grams">Grams</option>
+        </select>
+      </div>
+      
+      <label for="heightInput">Enter Height</label>
+      <div class="heightInputFileds">
+        <input type="number" name="height" id="heightInput" autocomplete="off" placeholder="Enter The Height">
+        <select name="H_SIUnit" id="H_SIUnit">
+          <option value="m">Meter</option>
+          <option value="in">Inches</option>
+        </select>
+      </div>
+    </div>
+      
+    <button id="CalculateBtn" class="btn">Calculate BMI</button>
+
+    <p id="result"></p>
+
+  </div>
+    
+    <script>
+
+      function isValid(num) {
+        if (num>=0) {
+          return true
+        }
+        else{
+          return false
+        }
+      }
+      function convertWeight(num,cho) {
+        switch (cho) {
+          case "kg":
+            return num;
+            break;
+
+          case "lb":
+            return (num*0.45359237);
+            break;
+
+          case "Grams":
+            return (num/1000);
+            break;
+        }
+      }
+      function convertHeight(num,cho) {
+        switch (cho) {
+          case "m":
+            return num;
+            break;
+
+          case "in":
+            return (num/39.37);
+            break;
+        }
+      }
+      function Calculate_BMI(Weight,Height) {
+          return Weight/(Height*Height);
+      }
+      function bmiindexfinder(BMI) {
+        if(BMI<18.5) return "Underweight";
+        else if(BMI<=24.9 && BMI>=18.5) return "Normal Weight";
+        else if(BMI<=29.9 && BMI>=25) return "Overweight";
+        else if(BMI<=34.9 && BMI>=30) return "Obese";
+        else if(BMI>=35) return "Extremely Obese";
+      }
+      const bmiColor = (BMI) => {
+        let bmiindexcolor = document.getElementById("bmiindex");
+        if(BMI<18.5) bmiindexcolor.style.backgroundColor = "blue" ;
+        else if(BMI<=24.9 && BMI>=18.5) bmiindexcolor.style.backgroundColor = "green" ;
+        else if(BMI<=29.9 && BMI>=25) bmiindexcolor.style.backgroundColor = "yellow" ;
+        else if(BMI<=34.9 && BMI>=30) bmiindexcolor.style.backgroundColor = "orange" ;
+        else if(BMI>=35) return bmiindexcolor.style.backgroundColor = "red" ;
+      }
+    
+      let btn = document.getElementById("CalculateBtn").addEventListener("click",() => {
+        let weightNum = Number(document.getElementById("weightInput").value);
+        let weightSiUnit = document.getElementById("W_SIUnit").value;
+        let heightNum= Number(document.getElementById("heightInput").value);
+        let heightSiUnit = document.getElementById("H_SIUnit").value;
+
+        let show = document.getElementById("result");
+
+        if (isValid(weightNum)==true && isValid(heightNum)==true) {
+          let filterWeight = convertWeight(weightNum,weightSiUnit);
+          let filterHeight = convertHeight(heightNum,heightSiUnit);
+          let BMI_Vlaue = (Calculate_BMI(filterWeight,filterHeight)).toFixed(2);
+          // show.innerText = `BMI = ${BMI_Vlaue}`;
+          show.innerHTML = `BMI = ${BMI_Vlaue}<div class="bmiindex" id="bmiindex"> ${bmiindexfinder(BMI_Vlaue)} </div>`;
+          bmiColor(BMI_Vlaue);
+        }
+        else{
+          show.innerText = "Enter The Valid Number";
+        }
+      });
+      
+    </script>
+  </body>
+</html>
